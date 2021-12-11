@@ -28,17 +28,13 @@ const theme = createTheme({
 });
 
 function App() {
-    function submitForm(event: React.FormEvent<HTMLFormElement>) {
-        event.preventDefault();
-    }
-
     return (
         <>
             <ThemeProvider theme={theme}>
                 <VariableForm>
                     <Header />
                     <Container component={"main"} maxWidth={"sm"}>
-                        <Forms functionSubmitForm={submitForm} />
+                        <Forms />
                     </Container>
                 </VariableForm>
             </ThemeProvider>

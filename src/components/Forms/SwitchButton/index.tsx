@@ -12,18 +12,20 @@ export default function SwitchButton({
     variable,
     stringVariable,
 }: SwitchButtonProps) {
-    <FormControlLabel
-        label={stringVariable}
-        control={
-            <Switch
-                onChange={(event) => {
-                    setVariable(event.target.checked);
-                }}
-                name="Promoçoes"
-                checked={variable}
-                color="secondary"
-                type="checkbox"
-            />
-        }
-    />;
+    return (
+        <FormControlLabel
+            label={stringVariable}
+            control={
+                <Switch
+                    onChange={(event) => {
+                        setVariable(event.target.checked);
+                    }}
+                    name={stringVariable}
+                    checked={variable}
+                    color="secondary"
+                    type="checkbox"
+                />
+            }
+        />
+    );
 }
