@@ -13,7 +13,7 @@ export default function SignIn() {
     const [news, setNews] = useState(true);
     const [disableButton, setDisableButton] = useState(true);
     const [CPFError, setCPFError] = useState({
-        cpf: { valido: true, texto: "" },
+        name: { valido: true, texto: "" },
     });
 
     function submitForm(event: React.FormEvent<HTMLFormElement>) {
@@ -26,11 +26,11 @@ export default function SignIn() {
     ) {
         if (event.target.value.length !== 11) {
             setCPFError({
-                cpf: { valido: false, texto: "O CPF deve ter 11 digitos" },
+                name: { valido: false, texto: "O CPF deve ter 11 digitos" },
             });
         } else {
             setCPFError({
-                cpf: { valido: true, texto: "" },
+                name: { valido: true, texto: "" },
             });
         }
     }
@@ -41,7 +41,7 @@ export default function SignIn() {
             CPF !== "" &&
             name !== "" &&
             lastName !== "" &&
-            CPFError.cpf.valido === true
+            CPFError.name.valido === true
         ) {
             setDisableButton(false);
         } else {
@@ -49,59 +49,77 @@ export default function SignIn() {
         }
     }, [email, CPF, name, lastName, disableButton, CPFError]);
 
+    const switchButtonArray = [
+        {
+            setVariable: setPromotions,
+            variable: promotions,
+            stringVariable: "Promotions",
+        },
+        {
+            setVariable: setNews,
+            variable: news,
+            stringVariable: "Novidades",
+        },
+    ];
+
+    const inputsArray = [
+        {
+            setVariable: setName,
+            variableString: { name: "Name", nome: "Nome" },
+            variableFunction: () => {},
+            variableError: undefined,
+            variableType: "text",
+        },
+        {
+            setVariable: setLastName,
+            variableString: { name: "lastName", nome: "Sobrenome" },
+            variableFunction: () => {},
+            variableError: undefined,
+            variableType: "text",
+        },
+        {
+            setVariable: setCPF,
+            variableString: { name: "CPF", nome: "CPF" },
+            variableFunction: validadeCPF,
+            variableError: CPFError,
+            variableType: "number",
+        },
+        {
+            setVariable: setEmail,
+            variableString: { name: "email", nome: "email" },
+            variableFunction: () => {},
+            variableError: undefined,
+            variableType: "email",
+        },
+    ];
+
     return (
-        <>
-            <form
-                onSubmit={(event) => {
-                    submitForm(event);
-                }}
-            >
+        <form
+            onSubmit={(event) => {
+                submitForm(event);
+            }}
+        >
+            {inputsArray.map((parameter, i) => (
                 <Inputs
-                    setVariable={setName}
-                    variableString={{ name: "Name", nome: "Nome" }}
-                    variableFunction={() => {}}
-                    variableError={undefined}
-                    variableType={"text"}
+                    key={parameter.variableType + i}
+                    setVariable={parameter.setVariable}
+                    variableString={parameter.variableString}
+                    variableFunction={parameter.variableFunction}
+                    variableError={parameter.variableError}
+                    variableType={parameter.variableType}
                 />
+            ))}
 
-                <Inputs
-                    setVariable={setLastName}
-                    variableString={{ name: "lastName", nome: "Sobrenome" }}
-                    variableFunction={() => {}}
-                    variableError={undefined}
-                    variableType={"text"}
-                />
-
-                <Inputs
-                    setVariable={setCPF}
-                    variableString={{ name: "CPF", nome: "CPF" }}
-                    variableFunction={validadeCPF}
-                    variableError={CPFError}
-                    variableType={"number"}
-                />
-
-                <Inputs
-                    setVariable={setEmail}
-                    variableString={{ name: "email", nome: "email" }}
-                    variableFunction={() => {}}
-                    variableError={undefined}
-                    variableType={"email"}
-                />
-
+            {switchButtonArray.map((parameter, i) => (
                 <SwitchButton
-                    setVariable={setPromotions}
-                    variable={promotions}
-                    stringVariable="Promotions"
+                    key={parameter.stringVariable + i}
+                    setVariable={parameter.setVariable}
+                    variable={parameter.variable}
+                    stringVariable={parameter.stringVariable}
                 />
+            ))}
 
-                <SwitchButton
-                    setVariable={setNews}
-                    variable={news}
-                    stringVariable="Novidades"
-                />
-
-                <NewButton disableButton={disableButton} inner={"Continuar"} />
-            </form>
-        </>
+            <NewButton disableButton={disableButton} inner={"Continuar"} />
+        </form>
     );
 }

@@ -12,7 +12,7 @@ interface InputsProps {
 }
 
 interface errorProps {
-    cpf: {
+    name: {
         valido: boolean;
         texto: string;
     };
@@ -32,8 +32,8 @@ export default function Inputs({
                 setVariable(event.target.value);
             }}
             id={variableString.name}
-            error={variableError ? !variableError.cpf.valido : false}
-            helperText={variableError ? variableError.cpf.texto : ""}
+            error={variableError ? !variableError.name.valido : false}
+            helperText={variableError ? variableError.name.texto : ""}
             onBlur={(event) => variableFunction(event)}
             type={variableType}
             label={variableString.nome}

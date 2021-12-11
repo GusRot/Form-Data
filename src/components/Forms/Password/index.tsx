@@ -1,5 +1,5 @@
-import { TextField } from "@mui/material";
 import React, { useEffect, useState } from "react";
+import Inputs from "../Inputs";
 import NewButton from "../NewButton";
 
 export default function Password() {
@@ -15,7 +15,7 @@ export default function Password() {
     }, [password, activeButton]);
 
     const [passwordError, setPasswordError] = useState({
-        password: { valido: true, texto: "" },
+        name: { valido: true, texto: "" },
     });
 
     function validadepassword(
@@ -23,36 +23,27 @@ export default function Password() {
     ) {
         if (event.target.value.length !== 8) {
             setPasswordError({
-                password: {
+                name: {
                     valido: false,
                     texto: "O password deve ter pelo menos 8 digitos",
                 },
             });
         } else {
             setPasswordError({
-                password: { valido: true, texto: "" },
+                name: { valido: true, texto: "" },
             });
         }
     }
 
     return (
         <form>
-            <TextField
-                autoFocus
-                color="secondary"
-                onChange={(event) => {
-                    setPassword(event.target.value);
-                }}
-                id="password"
-                label="Senha"
-                type="password"
-                error={!passwordError.password.valido}
-                helperText={passwordError.password.texto}
-                onBlur={(event) => validadepassword(event)}
-                required
-                margin="normal"
-                fullWidth
-            ></TextField>
+            <Inputs
+                setVariable={setPassword}
+                variableString={{ name: "password", nome: "Senha" }}
+                variableFunction={validadepassword}
+                variableError={passwordError}
+                variableType={"password"}
+            />
 
             <NewButton disableButton={activeButton} inner={"Continuar"} />
         </form>
