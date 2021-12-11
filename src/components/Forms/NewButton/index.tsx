@@ -1,5 +1,6 @@
 import { Button, createTheme, ThemeProvider } from "@mui/material";
 import React from "react";
+import "./style.css";
 
 const theme = createTheme({
     palette: {
@@ -17,19 +18,25 @@ const theme = createTheme({
 
 interface Props {
     disableButton: boolean;
+    inner: string;
 }
 
-export default function NewButton({ disableButton }: Props) {
+export default function NewButton({ disableButton, inner }: Props) {
     return (
         <ThemeProvider theme={theme}>
             <Button
+                sx={{ mt: 2 }}
                 variant="contained"
                 color="primary"
                 type="submit"
+                fullWidth
+                size="medium"
                 disabled={disableButton}
             >
-                Cadastrar
+                {inner}
             </Button>
         </ThemeProvider>
     );
 }
+
+//endIcon={<SendIcon />}

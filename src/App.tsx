@@ -1,8 +1,8 @@
 import React from "react";
 import Forms from "./components/Forms";
-import { GlobalStyle } from "./styles/global";
 import { Container, createTheme, ThemeProvider } from "@mui/material";
 import Header from "./components/Header";
+import { VariableForm } from "./FormContext";
 
 const theme = createTheme({
     palette: {
@@ -28,13 +28,19 @@ const theme = createTheme({
 });
 
 function App() {
+    function submitForm(event: React.FormEvent<HTMLFormElement>) {
+        event.preventDefault();
+    }
+
     return (
         <>
             <ThemeProvider theme={theme}>
-                <Container component={"article"} maxWidth={"sm"}>
+                <VariableForm>
                     <Header />
-                    <Forms />
-                </Container>
+                    <Container component={"main"} maxWidth={"sm"}>
+                        <Forms functionSubmitForm={submitForm} />
+                    </Container>
+                </VariableForm>
             </ThemeProvider>
         </>
     );
