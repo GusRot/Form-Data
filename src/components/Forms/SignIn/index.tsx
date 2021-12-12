@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import "./style.css";
 import NewButton from "../NewButton";
 import SwitchButton from "../SwitchButton";
 import Inputs from "../Inputs";
+import { FormsVariablesContext } from "../../../FormsVariablesContext";
 
 export default function SignIn() {
     const [name, setName] = useState("");
@@ -15,10 +16,12 @@ export default function SignIn() {
     const [CPFError, setCPFError] = useState({
         name: { valido: true, texto: "" },
     });
+    const { handleStep } = useContext(FormsVariablesContext);
 
     function submitForm(event: React.FormEvent<HTMLFormElement>) {
         event.preventDefault();
         console.log([name, lastName, email, CPF, promotions, news]);
+        handleStep(1);
     }
 
     function validadeCPF(
@@ -26,7 +29,10 @@ export default function SignIn() {
     ) {
         if (event.target.value.length !== 11) {
             setCPFError({
-                name: { valido: false, texto: "O CPF deve ter 11 digitos" },
+                name: {
+                    valido: false,
+                    texto: "O CPF deve ter 11 digitos(apenas numeros)",
+                },
             });
         } else {
             setCPFError({

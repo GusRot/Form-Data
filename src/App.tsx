@@ -2,7 +2,7 @@ import React from "react";
 import Forms from "./components/Forms";
 import { Container, createTheme, ThemeProvider } from "@mui/material";
 import Header from "./components/Header";
-import { VariableForm } from "./FormContext";
+import { VariableFormProvider } from "./FormsVariablesContext";
 
 const theme = createTheme({
     palette: {
@@ -31,12 +31,12 @@ function App() {
     return (
         <>
             <ThemeProvider theme={theme}>
-                <VariableForm>
+                <VariableFormProvider>
                     <Header />
                     <Container component={"main"} maxWidth={"sm"}>
                         <Forms />
                     </Container>
-                </VariableForm>
+                </VariableFormProvider>
             </ThemeProvider>
         </>
     );

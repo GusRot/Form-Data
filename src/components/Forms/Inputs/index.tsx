@@ -2,7 +2,7 @@ import { TextField } from "@mui/material";
 import React from "react";
 
 interface InputsProps {
-    setVariable: React.Dispatch<React.SetStateAction<string>>;
+    setVariable: React.Dispatch<React.SetStateAction<string>> ;
     variableString: { name: string; nome: string };
     variableFunction: (
         e: React.FocusEvent<HTMLTextAreaElement | HTMLInputElement, Element>
