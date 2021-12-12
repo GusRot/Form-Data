@@ -43,7 +43,7 @@ export default function Inputs({
             label={variableString.nome}
             required={require ? true : false}
             margin="normal"
-            fullWidth={require ? true : false}
+            fullWidth={width ? true : false}
         />
     );
 }

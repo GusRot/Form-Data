@@ -5,20 +5,23 @@ import NewButton from "../NewButton";
 
 export default function Password() {
     const [password, setPassword] = useState("");
+    const [passwordConfirm, setPasswordConfirm] = useState("");
     const [activeButton, setActiveButton] = useState(true);
     const { submitForm } = useContext(FormsVariablesContext);
+    const [passwordError, setPasswordError] = useState({
+        name: { valido: true, texto: "" },
+    });
+    const [passwordConfirmError, setPasswordConfirmError] = useState({
+        name: { valido: true, texto: "" },
+    });
 
     useEffect(() => {
-        if (password.length >= 8) {
+        if (password.length >= 8 && passwordConfirm.length >= 8) {
             setActiveButton(false);
         } else {
             setActiveButton(true);
         }
-    }, [password, activeButton]);
-
-    const [passwordError, setPasswordError] = useState({
-        name: { valido: true, texto: "" },
-    });
+    }, [password, activeButton, passwordConfirm]);
 
     function validadepassword(
         event: React.FocusEvent<HTMLTextAreaElement | HTMLInputElement, Element>
@@ -27,7 +30,7 @@ export default function Password() {
             setPasswordError({
                 name: {
                     valido: false,
-                    texto: "O password deve ter pelo menos 8 digitos",
+                    texto: "A senha deve ter pelo menos 8 digitos",
                 },
             });
         } else {
@@ -37,10 +40,40 @@ export default function Password() {
         }
     }
 
+    function validadepasswordConfirm(
+        event: React.FocusEvent<HTMLTextAreaElement | HTMLInputElement, Element>
+    ) {
+        if (password !== passwordConfirm) {
+            PasswordConfirmError();
+        } else {
+            setPasswordConfirmError({
+                name: { valido: true, texto: "" },
+            });
+        }
+    }
+
+    function PasswordConfirmError() {
+        setPasswordConfirmError({
+            name: {
+                valido: false,
+                texto: "As senhas devem ser iguais",
+            },
+        });
+    }
+
+    function checkSubmit(event: React.FormEvent<HTMLFormElement>) {
+        if (password === passwordConfirm) {
+            submitForm(event, [password], 2);
+        } else {
+            event.preventDefault();
+            PasswordConfirmError();
+        }
+    }
+
     return (
         <form
             onSubmit={(event) => {
-                submitForm(event, [password], 2);
+                checkSubmit(event);
             }}
         >
             <Inputs
@@ -48,6 +81,17 @@ export default function Password() {
                 variableString={{ name: "password", nome: "Senha" }}
                 variableFunction={validadepassword}
                 variableError={passwordError}
+                variableType={"password"}
+            />
+
+            <Inputs
+                setVariable={setPasswordConfirm}
+                variableString={{
+                    name: "passwordConfirm",
+                    nome: "Confirmar Senha",
+                }}
+                variableFunction={validadepasswordConfirm}
+                variableError={passwordConfirmError}
                 variableType={"password"}
             />
 

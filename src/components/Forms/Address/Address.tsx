@@ -35,6 +35,7 @@ export default function Address() {
             variableFunction: validateCEP,
             variableError: CEPError,
             variableType: "number",
+            require: false,
         },
         {
             setVariable: setAddress,
@@ -42,6 +43,7 @@ export default function Address() {
             variableFunction: () => {},
             variableError: undefined,
             variableType: "text",
+            require: false,
         },
     ];
 
@@ -59,6 +61,7 @@ export default function Address() {
                     variableFunction={parameter.variableFunction}
                     variableError={parameter.variableError}
                     variableType={parameter.variableType}
+                    require={parameter.require}
                 />
             ))}
 

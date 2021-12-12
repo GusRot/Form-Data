@@ -1,4 +1,4 @@
-import { Container, Step, StepLabel, Stepper } from "@mui/material";
+import { Container, Divider, Step, StepLabel, Stepper } from "@mui/material";
 import React, { useContext } from "react";
 import { FormsVariablesContext } from "../../FormsVariablesContext";
 import Address from "./Address/Address";
@@ -41,7 +41,8 @@ export default function Forms() {
                     <StepLabel>Conclusão</StepLabel>
                 </Step>
             </Stepper>
-            <Container sx={{ mt: 3 }}>{currentStep(step)}</Container>
+            <Divider variant="middle" sx={{ mt: 2 }} />
+            <Container>{currentStep(step)}</Container>
         </>
     );
 }
