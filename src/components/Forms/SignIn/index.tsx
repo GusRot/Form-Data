@@ -16,13 +16,7 @@ export default function SignIn() {
     const [CPFError, setCPFError] = useState({
         name: { valido: true, texto: "" },
     });
-    const { handleStep } = useContext(FormsVariablesContext);
-
-    function submitForm(event: React.FormEvent<HTMLFormElement>) {
-        event.preventDefault();
-        console.log([name, lastName, email, CPF, promotions, news]);
-        handleStep(1);
-    }
+    const { submitForm } = useContext(FormsVariablesContext);
 
     function validadeCPF(
         event: React.FocusEvent<HTMLTextAreaElement | HTMLInputElement, Element>
@@ -59,7 +53,7 @@ export default function SignIn() {
         {
             setVariable: setPromotions,
             variable: promotions,
-            stringVariable: "Promotions",
+            stringVariable: "Promoções",
         },
         {
             setVariable: setNews,
@@ -102,7 +96,18 @@ export default function SignIn() {
     return (
         <form
             onSubmit={(event) => {
-                submitForm(event);
+                submitForm(
+                    event,
+                    [
+                        name,
+                        lastName,
+                        email,
+                        CPF,
+                        String(promotions),
+                        String(news),
+                    ],
+                    1
+                );
             }}
         >
             {inputsArray.map((parameter, i) => (

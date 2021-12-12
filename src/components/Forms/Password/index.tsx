@@ -1,10 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
+import { FormsVariablesContext } from "../../../FormsVariablesContext";
 import Inputs from "../Inputs";
 import NewButton from "../NewButton";
 
 export default function Password() {
     const [password, setPassword] = useState("");
     const [activeButton, setActiveButton] = useState(true);
+    const { submitForm } = useContext(FormsVariablesContext);
 
     useEffect(() => {
         if (password.length >= 8) {
@@ -21,7 +23,7 @@ export default function Password() {
     function validadepassword(
         event: React.FocusEvent<HTMLTextAreaElement | HTMLInputElement, Element>
     ) {
-        if (event.target.value.length !== 8) {
+        if (event.target.value.length < 8) {
             setPasswordError({
                 name: {
                     valido: false,
@@ -36,7 +38,11 @@ export default function Password() {
     }
 
     return (
-        <form>
+        <form
+            onSubmit={(event) => {
+                submitForm(event, [password], 2);
+            }}
+        >
             <Inputs
                 setVariable={setPassword}
                 variableString={{ name: "password", nome: "Senha" }}

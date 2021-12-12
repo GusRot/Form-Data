@@ -1,5 +1,6 @@
 import { Button, createTheme, ThemeProvider } from "@mui/material";
-import React from "react";
+import React, { useContext } from "react";
+import { FormsVariablesContext } from "../../../FormsVariablesContext";
 import "./style.css";
 
 const theme = createTheme({
@@ -22,6 +23,9 @@ interface Props {
 }
 
 export default function NewButton({ disableButton, inner }: Props) {
+    const { handleStep, step } = useContext(FormsVariablesContext);
+    const previousStep = step - 1;
+
     return (
         <ThemeProvider theme={theme}>
             <Button
@@ -34,6 +38,18 @@ export default function NewButton({ disableButton, inner }: Props) {
                 disabled={disableButton}
             >
                 {inner}
+            </Button>
+
+            <Button
+                sx={{ mt: 2 }}
+                variant="contained"
+                color="primary"
+                fullWidth
+                size="medium"
+                disabled={previousStep >= 0 ? false : true}
+                onClick={() => handleStep(previousStep)}
+            >
+                Voltar
             </Button>
         </ThemeProvider>
     );

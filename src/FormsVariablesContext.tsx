@@ -7,6 +7,11 @@ interface FormProp {
 interface FormsVariablesContextData {
     step: number;
     handleStep: (n: number) => void;
+    submitForm: (
+        event: React.FormEvent<HTMLFormElement>,
+        arr: Array<string>,
+        n: number
+    ) => void;
 }
 
 export const FormsVariablesContext = createContext<FormsVariablesContextData>(
@@ -20,9 +25,19 @@ export function VariableFormProvider({ children }: FormProp) {
         setStep(stepN);
     }
 
+    function submitForm(
+        event: React.FormEvent<HTMLFormElement>,
+        arr: Array<string>,
+        n: number
+    ) {
+        event.preventDefault();
+        console.log(arr);
+        handleStep(n);
+    }
+
     return (
         <FormsVariablesContext.Provider
-            value={{ step: step, handleStep: handleStep }}
+            value={{ step, handleStep, submitForm }}
         >
             {children}
         </FormsVariablesContext.Provider>

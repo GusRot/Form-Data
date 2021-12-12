@@ -1,7 +1,9 @@
-import { Typography } from "@mui/material";
+import { Container, Step, StepLabel, Stepper } from "@mui/material";
 import React, { useContext } from "react";
 import { FormsVariablesContext } from "../../FormsVariablesContext";
 import Address from "./Address/Address";
+import DefaultError from "./DefaultError";
+import EndForms from "./EndForms";
 import Password from "./Password";
 import SignIn from "./SignIn";
 
@@ -16,12 +18,30 @@ export default function Forms() {
                 return <Password />;
             case 2:
                 return <Address />;
+            case 3:
+                return <EndForms />;
             default:
-                return (
-                    <Typography>Erro ao exibir, recarregue a página</Typography>
-                );
+                return <DefaultError />;
         }
     }
 
-    return <>{currentStep(step)}</>;
+    return (
+        <>
+            <Stepper activeStep={step}>
+                <Step>
+                    <StepLabel>Cadastro</StepLabel>
+                </Step>
+                <Step>
+                    <StepLabel>Criar_Senha</StepLabel>
+                </Step>
+                <Step>
+                    <StepLabel>Endereço</StepLabel>
+                </Step>
+                <Step>
+                    <StepLabel>Conclusão</StepLabel>
+                </Step>
+            </Stepper>
+            <Container sx={{ mt: 3 }}>{currentStep(step)}</Container>
+        </>
+    );
 }

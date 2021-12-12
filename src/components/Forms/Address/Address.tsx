@@ -1,17 +1,15 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
+import { FormsVariablesContext } from "../../../FormsVariablesContext";
 import Inputs from "../Inputs";
 import NewButton from "../NewButton";
 
 export default function Address() {
-    function submitForm(e: React.FormEvent<HTMLFormElement>) {
-        console.log(CEP, address);
-    }
-
     const [CEP, setCEP] = useState("");
     const [CEPError, setCEPError] = useState({
         name: { valido: true, texto: "" },
     });
     const [address, setAddress] = useState("");
+    const { submitForm } = useContext(FormsVariablesContext);
 
     function validateCEP(
         event: React.FocusEvent<HTMLTextAreaElement | HTMLInputElement, Element>
@@ -40,7 +38,7 @@ export default function Address() {
         },
         {
             setVariable: setAddress,
-            variableString: { name: "address", nome: "Endereço" },
+            variableString: { name: "address", nome: "Endereço Completo" },
             variableFunction: () => {},
             variableError: undefined,
             variableType: "text",
@@ -50,7 +48,7 @@ export default function Address() {
     return (
         <form
             onSubmit={(event) => {
-                submitForm(event);
+                submitForm(event, [CEP, address], 3);
             }}
         >
             {inputAddressArray.map((parameter, i) => (

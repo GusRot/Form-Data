@@ -2,13 +2,15 @@ import { TextField } from "@mui/material";
 import React from "react";
 
 interface InputsProps {
-    setVariable: React.Dispatch<React.SetStateAction<string>> ;
+    setVariable: React.Dispatch<React.SetStateAction<string>>;
     variableString: { name: string; nome: string };
     variableFunction: (
         e: React.FocusEvent<HTMLTextAreaElement | HTMLInputElement, Element>
     ) => void;
     variableError: errorProps | undefined;
     variableType: string;
+    require?: boolean;
+    width?: boolean;
 }
 
 interface errorProps {
@@ -24,6 +26,8 @@ export default function Inputs({
     variableFunction,
     variableError,
     variableType,
+    require = true,
+    width = true,
 }: InputsProps) {
     return (
         <TextField
@@ -37,9 +41,9 @@ export default function Inputs({
             onBlur={(event) => variableFunction(event)}
             type={variableType}
             label={variableString.nome}
-            required
+            required={require ? true : false}
             margin="normal"
-            fullWidth
+            fullWidth={require ? true : false}
         />
     );
 }
