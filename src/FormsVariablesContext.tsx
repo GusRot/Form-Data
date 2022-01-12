@@ -19,7 +19,7 @@ export const FormsVariablesContext = createContext<FormsVariablesContextData>(
 );
 
 export function VariableFormProvider({ children }: FormProp) {
-    const [step, setStep] = useState(2);
+    const [step, setStep] = useState(0);
 
     function handleStep(stepN: number) {
         setStep(stepN);
