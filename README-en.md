@@ -1,4 +1,4 @@
-###  Version README [English](./README-en.md) 
+###  Versão README [Português](./README.md) 
 <div style="display: flex; gap:1rem;">
 <a href="#">
 <img alt="Repository size" src="https://img.shields.io/github/repo-size/GusRot/Form-Data">
@@ -14,18 +14,18 @@
 </a>
 </div>
 
-## 📝 O Projeto
+## 📝 Project
 
-Formulario de cadastro com as devidas validacoes. você pode ver no console as informações que voce digitou.
-Fique a vontade para colocar os dados que quiser, pois não salvo nenhuma informação digitada.
+Registration form with the necessary validations. you can see the information you entered in the console.
+Feel free to put the data you want, because I don't save any information typed.
 
-### Desenvolvimento
+### Development
 
-Apesar de ser um projeto simples, foram utilizados diversas ferramenas técnicas com fins de aprendizagem, como: Material UI para o Layout, Typescript para maior fluidez das variáveis, Context API para controlar a etapa do cadastro, Function Components com map(high-order-function) nos campos para evitar repetição de código.
+Despite being a simple project, several technical tools were used for learning purposes, such as: Material UI for the Layout, Typescript for greater fluidity of the variables, Context API to control the registration step, Function Components with map(high-order-function) in the fields to avoid repetition of code
 
 ### Build
 
-[Acesse link aqui] (https://form-data-wine.vercel.app) para visualizar o build do projeto.
+[Access link here] (https://form-data-wine.vercel.app) to visualize the build.
 
 ### Getting Started with Create React App
 
