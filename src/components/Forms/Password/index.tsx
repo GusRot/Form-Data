@@ -9,10 +9,10 @@ export default function Password() {
     const [activeButton, setActiveButton] = useState(true);
     const { submitForm } = useContext(FormsVariablesContext);
     const [passwordError, setPasswordError] = useState({
-        name: { valido: true, texto: "" },
+        name: { valid: true, text: "" },
     });
     const [passwordConfirmError, setPasswordConfirmError] = useState({
-        name: { valido: true, texto: "" },
+        name: { valid: true, text: "" },
     });
 
     useEffect(() => {
@@ -29,13 +29,13 @@ export default function Password() {
         if (event.target.value.length < 8) {
             setPasswordError({
                 name: {
-                    valido: false,
-                    texto: "A senha deve ter pelo menos 8 digitos",
+                    valid: false,
+                    text: "A senha deve ter pelo menos 8 digitos",
                 },
             });
         } else {
             setPasswordError({
-                name: { valido: true, texto: "" },
+                name: { valid: true, text: "" },
             });
         }
     }
@@ -47,7 +47,7 @@ export default function Password() {
             PasswordConfirmError();
         } else {
             setPasswordConfirmError({
-                name: { valido: true, texto: "" },
+                name: { valid: true, text: "" },
             });
         }
     }
@@ -55,8 +55,8 @@ export default function Password() {
     function PasswordConfirmError() {
         setPasswordConfirmError({
             name: {
-                valido: false,
-                texto: "As senhas devem ser iguais",
+                valid: false,
+                text: "As senhas devem ser iguais",
             },
         });
     }
@@ -77,8 +77,8 @@ export default function Password() {
             }}
         >
             <Inputs
-                setVariable={setPassword}
                 variable={password}
+                setVariable={setPassword}
                 variableString={{ name: "password", nome: "Senha" }}
                 variableFunction={validadepassword}
                 variableError={passwordError}
@@ -86,8 +86,8 @@ export default function Password() {
             />
 
             <Inputs
-                setVariable={setPasswordConfirm}
                 variable={passwordConfirm}
+                setVariable={setPasswordConfirm}
                 variableString={{
                     name: "passwordConfirm",
                     nome: "Confirmar Senha",

@@ -6,7 +6,7 @@ import NewButton from "../NewButton";
 export default function Address() {
     const [CEP, setCEP] = useState("");
     const [CEPError, setCEPError] = useState({
-        name: { valido: true, texto: "" },
+        name: { valid: true, text: "" },
     });
     const [address, setAddress] = useState("");
     const { submitForm } = useContext(FormsVariablesContext);
@@ -51,13 +51,13 @@ export default function Address() {
     function checkCEPError(error: boolean) {
         if (error) {
             setCEPError({
-                name: { valido: true, texto: "" },
+                name: { valid: true, text: "" },
             });
         } else {
             setCEPError({
                 name: {
-                    valido: false,
-                    texto: "O CEP deve conter apenas números",
+                    valid: false,
+                    text: "O CEP deve conter apenas números",
                 },
             });
         }
@@ -80,7 +80,6 @@ export default function Address() {
             variable: address,
             variableString: { name: "address", nome: "Endereço Completo" },
             variableFunction: () => {},
-            variableError: undefined,
             variableType: "text",
             require: false,
         },

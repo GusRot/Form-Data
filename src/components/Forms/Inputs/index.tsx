@@ -8,8 +8,8 @@ interface InputsProps {
     variableFunction: (
         e: React.FocusEvent<HTMLTextAreaElement | HTMLInputElement, Element>
     ) => void;
-    variableError: errorProps | undefined;
     variableType: string;
+    variableError?: errorProps;
     require?: boolean;
     width?: boolean;
     maxLength?: number;
@@ -23,8 +23,8 @@ interface InputsProps {
 
 interface errorProps {
     name: {
-        valido: boolean;
-        texto: string;
+        valid: boolean;
+        text: string;
     };
 }
 
@@ -43,6 +43,17 @@ export default function Inputs({
     return (
         <TextField
             color="secondary"
+            margin="normal"
+            fullWidth={width ? true : false}
+            id={variableString.name}
+            type={variableType}
+            label={variableString.nome}
+            value={variable}
+            required={require ? true : false}
+            error={variableError ? !variableError.name.valid : false}
+            helperText={variableError ? variableError.name.text : ""}
+            inputProps={maxLength ? { maxLength: maxLength } : {}}
+            onBlur={(event) => variableFunction(event)}
             onChange={
                 mask.mask
                     ? (event) => {
@@ -52,17 +63,6 @@ export default function Inputs({
                           setVariable(event.target.value);
                       }
             }
-            id={variableString.name}
-            error={variableError ? !variableError.name.valido : false}
-            helperText={variableError ? variableError.name.texto : ""}
-            onBlur={(event) => variableFunction(event)}
-            type={variableType}
-            label={variableString.nome}
-            required={require ? true : false}
-            margin="normal"
-            fullWidth={width ? true : false}
-            inputProps={maxLength ? { maxLength: maxLength } : {}}
-            value={variable}
         />
     );
 }

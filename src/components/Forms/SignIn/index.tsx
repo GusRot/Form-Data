@@ -14,7 +14,7 @@ export default function SignIn() {
     const [news, setNews] = useState(true);
     const [disableButton, setDisableButton] = useState(true);
     const [CPFError, setCPFError] = useState({
-        name: { valido: true, texto: "" },
+        name: { valid: true, text: "" },
     });
     const { submitForm } = useContext(FormsVariablesContext);
 
@@ -42,13 +42,13 @@ export default function SignIn() {
         if (error) {
             setCPFError({
                 name: {
-                    valido: false,
-                    texto: "O CPF deve ter 11 digitos(apenas numeros)",
+                    valid: false,
+                    text: "O CPF deve ter 11 digitos(apenas numeros)",
                 },
             });
         } else {
             setCPFError({
-                name: { valido: true, texto: "" },
+                name: { valid: true, text: "" },
             });
         }
     }
@@ -59,7 +59,7 @@ export default function SignIn() {
             CPF !== "" &&
             name !== "" &&
             lastName !== "" &&
-            CPFError.name.valido === true
+            CPFError.name.valid === true
         ) {
             setDisableButton(false);
         } else {
@@ -86,7 +86,6 @@ export default function SignIn() {
             variable: name,
             variableString: { name: "Name", nome: "Nome" },
             variableFunction: () => {},
-            variableError: undefined,
             variableType: "text",
         },
         {
@@ -94,7 +93,6 @@ export default function SignIn() {
             variable: lastName,
             variableString: { name: "lastName", nome: "Sobrenome" },
             variableFunction: () => {},
-            variableError: undefined,
             variableType: "text",
         },
         {
@@ -115,7 +113,6 @@ export default function SignIn() {
             variable: email,
             variableString: { name: "email", nome: "email" },
             variableFunction: () => {},
-            variableError: undefined,
             variableType: "email",
         },
     ];
@@ -154,8 +151,8 @@ export default function SignIn() {
             {switchButtonArray.map((parameter, i) => (
                 <SwitchButton
                     key={parameter.stringVariable + i}
-                    setVariable={parameter.setVariable}
                     variable={parameter.variable}
+                    setVariable={parameter.setVariable}
                     stringVariable={parameter.stringVariable}
                 />
             ))}
