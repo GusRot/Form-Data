@@ -3,6 +3,7 @@ import React from "react";
 
 interface InputsProps {
     setVariable: React.Dispatch<React.SetStateAction<string>>;
+    variable: any;
     variableString: { name: string; nome: string };
     variableFunction: (
         e: React.FocusEvent<HTMLTextAreaElement | HTMLInputElement, Element>
@@ -11,6 +12,13 @@ interface InputsProps {
     variableType: string;
     require?: boolean;
     width?: boolean;
+    maxLength?: number;
+    mask?: {
+        mask: boolean;
+        maskFunction: (
+            e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
+        ) => void;
+    };
 }
 
 interface errorProps {
@@ -22,19 +30,28 @@ interface errorProps {
 
 export default function Inputs({
     setVariable,
+    variable,
     variableString,
     variableFunction,
     variableError,
     variableType,
     require = true,
     width = true,
+    maxLength,
+    mask = { mask: false, maskFunction: () => {} },
 }: InputsProps) {
     return (
         <TextField
             color="secondary"
-            onChange={(event) => {
-                setVariable(event.target.value);
-            }}
+            onChange={
+                mask.mask
+                    ? (event) => {
+                          mask.maskFunction(event);
+                      }
+                    : (event) => {
+                          setVariable(event.target.value);
+                      }
+            }
             id={variableString.name}
             error={variableError ? !variableError.name.valido : false}
             helperText={variableError ? variableError.name.texto : ""}
@@ -44,6 +61,8 @@ export default function Inputs({
             required={require ? true : false}
             margin="normal"
             fullWidth={width ? true : false}
+            inputProps={maxLength ? { maxLength: maxLength } : {}}
+            value={variable}
         />
     );
 }

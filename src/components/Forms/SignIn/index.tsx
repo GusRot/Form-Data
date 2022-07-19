@@ -21,7 +21,25 @@ export default function SignIn() {
     function validadeCPF(
         event: React.FocusEvent<HTMLTextAreaElement | HTMLInputElement, Element>
     ) {
-        if (event.target.value.length !== 11) {
+        checkCPFError(event.target.value.length !== 11);
+    }
+
+    function maskCPFFunction(
+        event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
+    ) {
+        const regex = /[^\d]+/g;
+        const CPFValue = event.target.value.match(regex);
+
+        if (CPFValue) {
+            checkCPFError(true);
+        } else {
+            setCPF(event.target.value);
+            checkCPFError(false);
+        }
+    }
+
+    function checkCPFError(error: boolean) {
+        if (error) {
             setCPFError({
                 name: {
                     valido: false,
@@ -65,6 +83,7 @@ export default function SignIn() {
     const inputsArray = [
         {
             setVariable: setName,
+            variable: name,
             variableString: { name: "Name", nome: "Nome" },
             variableFunction: () => {},
             variableError: undefined,
@@ -72,6 +91,7 @@ export default function SignIn() {
         },
         {
             setVariable: setLastName,
+            variable: lastName,
             variableString: { name: "lastName", nome: "Sobrenome" },
             variableFunction: () => {},
             variableError: undefined,
@@ -79,13 +99,20 @@ export default function SignIn() {
         },
         {
             setVariable: setCPF,
+            variable: CPF,
             variableString: { name: "CPF", nome: "CPF" },
             variableFunction: validadeCPF,
             variableError: CPFError,
-            variableType: "number",
+            variableType: "text",
+            maxLength: 11,
+            mask: {
+                mask: true,
+                maskFunction: maskCPFFunction,
+            },
         },
         {
             setVariable: setEmail,
+            variable: email,
             variableString: { name: "email", nome: "email" },
             variableFunction: () => {},
             variableError: undefined,
@@ -113,11 +140,14 @@ export default function SignIn() {
             {inputsArray.map((parameter, i) => (
                 <Inputs
                     key={parameter.variableType + i}
+                    variable={parameter.variable}
                     setVariable={parameter.setVariable}
                     variableString={parameter.variableString}
                     variableFunction={parameter.variableFunction}
                     variableError={parameter.variableError}
                     variableType={parameter.variableType}
+                    maxLength={parameter.maxLength}
+                    mask={parameter.mask}
                 />
             ))}
 

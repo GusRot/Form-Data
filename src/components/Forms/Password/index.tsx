@@ -78,6 +78,7 @@ export default function Password() {
         >
             <Inputs
                 setVariable={setPassword}
+                variable={password}
                 variableString={{ name: "password", nome: "Senha" }}
                 variableFunction={validadepassword}
                 variableError={passwordError}
@@ -86,6 +87,7 @@ export default function Password() {
 
             <Inputs
                 setVariable={setPasswordConfirm}
+                variable={passwordConfirm}
                 variableString={{
                     name: "passwordConfirm",
                     nome: "Confirmar Senha",
